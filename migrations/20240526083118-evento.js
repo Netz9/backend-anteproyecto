@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('evento', {
       id_evento: {
         type: Sequelize.INTEGER,
@@ -25,20 +25,20 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: true
       },
+      id_facultad: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'facultad',
+          key: 'id_facultad'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
       id_departamento: {
         type: Sequelize.INTEGER,
         references: {
           model: 'departamento',
           key: 'id_departamento'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      },
-      id_lugar: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'lugar',
-          key: 'id_lugar'
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
@@ -54,7 +54,7 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('evento');
   }
 };
