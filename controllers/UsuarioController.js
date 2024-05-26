@@ -12,21 +12,21 @@ exports.obtenerUsuarios = async (req, res) => {
 };
 
 exports.crearUsuario = async (req, res) => {
-    const { username, password, role } = req.body;
-  
-    if (!password) {
-      return res.status(400).json({ mensaje: 'Se requiere una contraseña' });
-    }
-  
-    try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const nuevoUsuario = await Usuario.create({ username, password: hashedPassword, role });
-      res.status(201).json(nuevoUsuario);
-    } catch (error) {
-      console.error('Error al crear usuario:', error);
-      res.status(400).json({ mensaje: 'Error al crear usuario' });
-    }
-  };
+  const { usuario, contrasena, id_rol } = req.body;
+
+  if (!contrasena) {
+    return res.status(400).json({ mensaje: 'Se requiere una contraseña' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(contrasena, 10);
+    const nuevoUsuario = await Usuario.create({ usuario, contrasena: hashedPassword, id_rol });
+    res.status(201).json(nuevoUsuario);
+  } catch (error) {
+    console.error('Error al crear usuario:', error);
+    res.status(400).json({ mensaje: 'Error al crear usuario' });
+  }
+};
 
 exports.obtenerUsuarioPorId = async (req, res) => {
   const { id } = req.params;
@@ -44,21 +44,26 @@ exports.obtenerUsuarioPorId = async (req, res) => {
 
 exports.actualizarUsuario = async (req, res) => {
   const { id } = req.params;
-  const { username, password, role } = req.body;
+  const { usuario, contrasena, id_rol, estado } = req.body;
   try {
-    const usuario = await Usuario.findByPk(id);
-    if (!usuario) {
+    const usuarioExistente = await Usuario.findByPk(id);
+    if (!usuarioExistente) {
       return res.status(404).json({ mensaje: 'Usuario no encontrado' });
     }
-    await usuario.update({ username, password, role });
-    res.json(usuario);
+
+    const updatedData = { usuario, id_rol, estado };
+    if (contrasena) {
+      updatedData.contrasena = await bcrypt.hash(contrasena, 10);
+    }
+
+    await usuarioExistente.update(updatedData);
+    res.json(usuarioExistente);
   } catch (error) {
     console.error('Error al actualizar usuario:', error);
     res.status(400).json({ mensaje: 'Error al actualizar usuario' });
   }
 };
 
-// Controlador para eliminar un usuario por su ID
 exports.eliminarUsuario = async (req, res) => {
   const { id } = req.params;
   try {

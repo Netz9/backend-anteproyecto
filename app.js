@@ -2,19 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-const Sequelize = require('sequelize');
-const databaseConfig = require('./config/database');
 const usuarioRoutes = require('./routes/UsuarioRoutes');
-const loginRoutes = require('./routes/LoginRoutes');
-const sequelize = new Sequelize(databaseConfig.development);
-const port = 3006; 
+const loginRoutes = require('./routes/LoginRoutes'); // Descomentado para incluir la ruta de login
+const port = 3006;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', usuarioRoutes);
-app.use('/api', loginRoutes);
-
+app.use('/api', loginRoutes); // Descomentado para incluir la ruta de login
 
 // Ruta de ejemplo
 app.get('/', (req, res) => {

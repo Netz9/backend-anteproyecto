@@ -17,7 +17,8 @@ async function verificarConexion() {
   }
 }
 
+verificarConexion();
+
 module.exports = {
-  sequelize,
-  verificarConexion
+  sequelize
 };

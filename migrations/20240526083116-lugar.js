@@ -3,25 +3,23 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('roles', {
-      id: {
+    await queryInterface.createTable('lugar', {
+      id_lugar: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      alias: {
+      nombre_lugar: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true 
+        allowNull: false
       },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: true 
+      descripcion: {
+        type: Sequelize.TEXT,
+        allowNull: true
       },
-      state: {
-        type: Sequelize.ENUM('active', 'inactive'),
-        allowNull: false,
-        defaultValue: 'active'
+      capacidad_asientos: {
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -35,6 +33,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('roles');
+    await queryInterface.dropTable('lugar');
   }
 };

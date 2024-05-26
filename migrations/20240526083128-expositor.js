@@ -3,45 +3,32 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('usuarios', {
-      id: {
+    await queryInterface.createTable('expositor', {
+      id_expositor: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      username: {
+      nombre: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      password: {
+      apellido: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      role: {
+      especialidad: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      id: {
+      id_evento: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      username: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      role: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      state: {
-        type: Sequelize.ENUM('active', 'inactive'), 
-        allowNull: false,
-        defaultValue: 'active' 
+        references: {
+          model: 'evento',
+          key: 'id_evento'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -54,8 +41,7 @@ module.exports = {
     });
   },
 
-
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('usuarios');
+    await queryInterface.dropTable('expositor');
   }
 };

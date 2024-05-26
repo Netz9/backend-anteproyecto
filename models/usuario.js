@@ -1,28 +1,31 @@
-const { DataTypes, Sequelize } = require('sequelize'); 
+const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelizeConfig').sequelize;
 
 const Usuario = sequelize.define('Usuario', {
-  id: {
+  id_usuario: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  username: {
+  usuario: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  password: {
+  contrasena: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  state: {
-    type: DataTypes.ENUM('active', 'inactive'),
+  estado: {
+    type: DataTypes.ENUM('Activo', 'Inactivo'),
     allowNull: false,
-    defaultValue: 'active'
+    defaultValue: 'Activo'
+  },
+  id_rol: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'rol',
+      key: 'id_rol'
+    }
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -32,6 +35,9 @@ const Usuario = sequelize.define('Usuario', {
     type: DataTypes.DATE,
     allowNull: false
   }
+}, {
+  tableName: 'usuario',
+  timestamps: true
 });
 
 module.exports = Usuario;
