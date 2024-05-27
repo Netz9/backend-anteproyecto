@@ -37,18 +37,20 @@ exports.obtenerExpositorPorId = async (req, res) => {
 
 exports.actualizarExpositor = async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellido, especialidad, id_evento } = req.body;
+  const { nombre, apellido, especialidad, estado, id_evento } = req.body;
   try {
     const expositorExistente = await Expositor.findByPk(id);
     if (!expositorExistente) {
       return res.status(404).json({ mensaje: 'Expositor no encontrado' });
     }
 
-    await expositorExistente.update({ nombre, apellido, especialidad, id_evento });
+    const updatedData = { nombre, apellido, especialidad, estado, id_evento };
+
+    await expositorExistente.update(updatedData);
     res.json(expositorExistente);
   } catch (error) {
     console.error('Error al actualizar expositor:', error);
-    res.status(500).json({ mensaje: 'Error interno del servidor' });
+    res.status(400).json({ mensaje: 'Error al actualizar expositor' });
   }
 };
 
