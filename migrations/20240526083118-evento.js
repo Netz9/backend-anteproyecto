@@ -25,6 +25,11 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: true
       },
+      estado: {
+        type: Sequelize.ENUM('Activo', 'Inactivo'), 
+        allowNull: false,
+        defaultValue: 'Activo' 
+      },
       id_facultad: {
         type: Sequelize.INTEGER,
         references: {

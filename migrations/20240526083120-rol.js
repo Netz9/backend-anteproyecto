@@ -23,12 +23,29 @@ module.exports = {
       }
     });
 
-    // rol por defecto
-    await queryInterface.bulkInsert('rol', [{
-      descripcion: 'admin',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+    // roles por defecto
+    await queryInterface.bulkInsert('rol', [
+      {
+        descripcion: 'administrador',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        descripcion: 'catedratico',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        descripcion: 'estudiante',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        descripcion: 'invitado',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ]);
   },
 
   async down (queryInterface, Sequelize) {

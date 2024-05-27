@@ -20,6 +20,11 @@ const Expositor = sequelize.define('Expositor', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  estado: {
+    type: DataTypes.ENUM('Activo', 'Inactivo'),
+    allowNull: false,
+    defaultValue: 'Activo'
+  },
   id_evento: {
     type: DataTypes.INTEGER,
     references: {

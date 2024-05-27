@@ -21,6 +21,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      estado: {
+        type: Sequelize.ENUM('Activo', 'Inactivo'), 
+        allowNull: false,
+        defaultValue: 'Activo' 
+      },
       id_evento: {
         type: Sequelize.INTEGER,
         references: {

@@ -25,6 +25,11 @@ const Evento = sequelize.define('Evento', {
     type: DataTypes.DATE,
     allowNull: true
   },
+  estado: {
+    type: DataTypes.ENUM('Activo', 'Inactivo'),
+    allowNull: false,
+    defaultValue: 'Activo'
+  },
   id_facultad: {
     type: DataTypes.INTEGER,
     references: {
